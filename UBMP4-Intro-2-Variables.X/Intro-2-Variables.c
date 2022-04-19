@@ -21,6 +21,9 @@
 // TODO Set linker ROM ranges to 'default,-0-7FF' under "Memory model" pull-down.
 // TODO Set linker code offset to '800' under "Additional options" pull-down.
 
+#define pressed 0
+#define notPressed 1
+
 // Program constant definitions
 const unsigned char maxCount = 50;
 
@@ -37,24 +40,36 @@ int main(void)
     // Code in this while loop runs repeatedly.
     while(1)
 	{
-        // Count SW2 button presses
-        if(SW2 == 0)
-        {
-            LED3 = 1;
-            SW2Count = SW2Count + 1;
-        }
-        else
-        {
-            LED3 = 0;
-        }
-        
-        if(SW2Count >= maxCount)
-        {
-            LED4 = 1;
-        }
+
+   // Count new SW2 button presses
+       if(SW2 == pressed && SW2Pressed == false)
+       {
+           LED3 = 1;
+           if(SW2Count < 255)
+           {
+               SW2Count = SW2Count + 1;
+           }
+           SW2Pressed = true;
+       }
+ 
+       // Clear pressed state if released
+       if(SW2 == notPressed)
+       {
+           LED3 = 0;
+           SW2Pressed = false;
+       }
+
+       if(SW2Count >= maxCount)
+       {
+           LED4 = 1;
+       }
+       else
+       {
+           LED4 = 0;
+       }
         
         // Reset count and turn off LED D4
-        if(SW3 == 0)
+        if(SW3 == pressed)
         {
             LED4 = 0;
             SW2Count = 0;
@@ -64,7 +79,7 @@ int main(void)
         __delay_ms(10);
         
         // Activate bootloader if SW1 is pressed.
-        if(SW1 == 0)
+        if(SW1 == pressed)
         {
             RESET();
         }
