@@ -23,9 +23,10 @@
 
 #define pressed 0
 #define notPressed 1
-
+#define A1
+#ifdef ProgramAnalysis
 // Program constant definitions
-const unsigned char maxCount = 50;
+const unsigned char maxCount = 5;
 
 // Program variable definitions
 unsigned char SW2Count = 0;
@@ -36,7 +37,7 @@ int main(void)
     // Configure oscillator and I/O ports. These functions run once at start-up.
     OSC_config();               // Configure internal oscillator for 48 MHz
     UBMP4_config();             // Configure on-board UBMP4 I/O devices
-	
+
     // Code in this while loop runs repeatedly.
     while(1)
 	{
@@ -47,12 +48,12 @@ int main(void)
            LED3 = 1;
            if(SW2Count < 255)
            {
-               SW2Count = SW2Count + 1;
+               SW2Count += 1;
            }
            SW2Pressed = true;
        }
  
-       // Clear pressed state if released
+    // Clear pressed state if released
        if(SW2 == notPressed)
        {
            LED3 = 0;
@@ -68,24 +69,142 @@ int main(void)
            LED4 = 0;
        }
         
-        // Reset count and turn off LED D4
+     // Reset count and turn off LED D4
         if(SW3 == pressed)
         {
             LED4 = 0;
             SW2Count = 0;
         }
         
-        // Add a short delay to the main while loop.
+     // Add a short delay to the main while loop.
         __delay_ms(10);
         
-        // Activate bootloader if SW1 is pressed.
+     // Activate bootloader if SW1 is pressed.
         if(SW1 == pressed)
         {
             RESET();
         }
     }
 }
+#endif
+#ifdef A1
+//Two Player clicker game
+// Program constant definitions
+const unsigned char maxCount = 5;
 
+// Program variable definitions
+unsigned char SW2Count = 0;
+bool SW2Pressed = false;
+unsigned char SW5Count = 0;
+bool SW5Pressed = false;
+
+
+int main(void)
+{
+    // Configure oscillator and I/O ports. These functions run once at start-up.
+    OSC_config();               // Configure internal oscillator for 48 MHz
+    UBMP4_config();             // Configure on-board UBMP4 I/O devices
+
+    // Code in this while loop runs repeatedly.
+    while(1)
+	{
+    // Player 1
+    // Count new SW2 button presses
+       if(SW2 == pressed && SW2Pressed == false)
+       {
+           LED3 = 1;
+           if(SW2Count < 255)
+           {
+               SW2Count += 1;
+           }
+           SW2Pressed = true;
+       }
+    // Clear pressed state if released
+       if(SW2 == notPressed)
+       {
+           LED3 = 0;
+           SW2Pressed = false;
+       }
+    //Player 1 wins
+       if(SW2Count >= maxCount && LED5 == 0)
+       {
+           LED4 = 1;
+       }
+       else
+       {
+           LED4 = 0;
+       }
+    // Player 2
+       if(SW5 == pressed && SW5Pressed == false)
+       {
+           LED6 = 1;
+           if(SW5Count < 255)
+           {
+               SW5Count += 1;
+           }
+           SW5Pressed = true;
+       }
+    // Clear pressed state if released
+       if(SW5 == notPressed)
+       {
+           LED6 = 0;
+           SW5Pressed = false;
+       }
+    // Player 2 wins
+       if(SW5Count >= maxCount && LED4 == 0)
+       {
+           LED5 = 1;
+       }
+       else
+       {
+           LED5 = 0;
+       }
+        
+     // Reset game
+        if(SW3 == pressed || SW4 == pressed)
+        {
+            LED4 = 0;
+            SW2Count = 0;
+            LED5 = 0;
+            SW5Count = 0;
+        }
+        
+     // Add a short delay to the main while loop.
+        __delay_ms(10);
+        
+     // Activate bootloader if SW1 is pressed.
+        if(SW1 == pressed)
+        {
+            RESET();
+        }
+    }
+}
+#endif
+#ifdef A2
+//Toggle button that turns an LED on when pressed, then off when pressed again.
+//Variables
+bool SW2pressed = false;
+
+int main(void)
+{
+    // Configure oscillator and I/O ports. These functions run once at start-up.
+    OSC_config();               // Configure internal oscillator for 48 MHz
+    UBMP4_config();             // Configure on-board UBMP4 I/O devices
+    while(1)
+    {
+        if(SW2 == pressed)
+        {
+            LED3 == 1;
+            SW2pressed = true;
+        }
+
+        if(SW1 == pressed)
+        {
+            RESET();
+        }
+    }
+}
+#endif
 /* Program Analysis
  * 
  * 1. The 'SW2Count' variable is created within RAM as an 8-bit memory location
