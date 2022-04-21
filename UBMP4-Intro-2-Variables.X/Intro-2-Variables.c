@@ -46,7 +46,7 @@ int main(void)
        if(SW2 == pressed && SW2Pressed == false)
        {
            LED3 = 1;
-           if(SW2Count < 255)
+           if(SW2Count < 255 )
            {
                SW2Count += 1;
            }
@@ -183,7 +183,7 @@ int main(void)
 #ifdef A2
 //Toggle button that turns an LED on when pressed, then off when pressed again.
 //Variables
-bool SW2pressed = false;
+bool LED3light = false;
 
 int main(void)
 {
@@ -194,10 +194,56 @@ int main(void)
     {
         if(SW2 == pressed)
         {
-            LED3 == 1;
-            SW2pressed = true;
+
         }
 
+        __delay_ms(10);
+
+        if(SW1 == pressed)
+        {
+            RESET();
+        }
+    }
+}
+#endif
+#ifdef A3
+int main(void)
+{
+    // Configure oscillator and I/O ports. These functions run once at start-up.
+    OSC_config();               // Configure internal oscillator for 48 MHz
+    UBMP4_config();             // Configure on-board UBMP4 I/O devices
+    while(1)
+    {
+        if(SW1 == pressed)
+        {
+            RESET();
+        }
+    }
+}
+#endif
+#ifdef A4
+int main(void)
+{
+    // Configure oscillator and I/O ports. These functions run once at start-up.
+    OSC_config();               // Configure internal oscillator for 48 MHz
+    UBMP4_config();             // Configure on-board UBMP4 I/O devices
+    while(1)
+    {
+        if(SW1 == pressed)
+        {
+            RESET();
+        }
+    }
+}
+#endif
+#ifdef A5
+int main(void)
+{
+    // Configure oscillator and I/O ports. These functions run once at start-up.
+    OSC_config();               // Configure internal oscillator for 48 MHz
+    UBMP4_config();             // Configure on-board UBMP4 I/O devices
+    while(1)
+    {
         if(SW1 == pressed)
         {
             RESET();
@@ -212,13 +258,27 @@ int main(void)
  *    What is the the maximum value an 8-bit variable can store?
  *    What are some benefits and drawbacks of using 8-bit variables in an 8-bit
  *    microcontroller?
- * 
+
+    The maximum value an 8-bit variable can store is 255. 
+A drawback of using an 8-bit variable is that you cannot represent numbers over 255, 
+but I could not think of any benefits that come with an 8-bit variable other than 
+that it is compatible with the hardware that is the UBMP4.
+
  * 2. The constant 'maxCount' is defined using a declaration similar to that
  *    used for the SW2Count variable, but with the 'const' prefix added in the
  *    declaration. Can you think of some advantages of declaring a constant like
  *    this, using a separate statement above the main code, rather than just
  *    embedding the value of the constant where it is needed in the code?
- * 
+
+    There are many advantages to declaring a constant variable rather than writing the number 
+ in the code. An example could be if you want to change the number of the constant later in 
+ your code. If you didn’t set up a variable you would have to go through the code and change 
+ all of the numbers. With a constant variable you only have to change one number to affect 
+ all the other variables. Another advantage of a constant variable is that it could be useful 
+ if you are dealing with a large number you do not want to keep writing. An example could be 
+ calculating the area of a circle you would have to use pi = 3.14159… And so on. With a constant 
+ variable you would only have to write pi in place of the number.
+
  * 3. This program should light LED D3 every time SW2 is pressed, and light
  *    LED D4 once the count reaches 50. Try it, and count how many times you
  *    have to press the button until LED D4 turns on. SW3 resets the count so
@@ -226,6 +286,10 @@ int main(void)
  * 
  *    Did your count reach 50? Can you describe what the program is doing?
  *    (Hint: try pressing and releasing the button at different rates of speed.)
+
+ When I press and release the button at different speeds LED D4 will turn on after a different 
+ number of presses. I can turn it on with a 1-7 push of the button.
+ 
  * 
  * 4. Modify the second 'if' structure to add the else block, as shown below:
 
@@ -243,6 +307,11 @@ int main(void)
  *    higher than maxCount. If LED D4 turns off, what can you infer about the
  *    value of the SW2Count variable? Can you explain what happens to the
  *    SW2Count variable as the SW2 button is held?
+
+ When LED D4 turns off I can infer that the value of the SW2 variable is less than the maxCount 
+ variable. I’m inferring that after the highest number of SW2 is reached when you add one to the 
+ highest number it resets to zero.
+
  * 
  * 5. We can set a limit on the SW2Count variable by encapsulating its increment
  *    statement inside a conditional statement. In your program, replace the
@@ -258,6 +327,13 @@ int main(void)
  *    but in a more compact form. After adding this code, what is the maximum
  *    value that the SW2Count variable will reach? How does this affect the
  *    operation of LED D4 when SW2 is held?
+
+ The maximum value SW2Count variable will reach is 255. This will affect the operation of LED D4 
+ when SW2 is held because when SW2 is held and LED D4 turns on the light will stay on because the 
+ variable will never add 1 to 255 and reset to 0. 
+
+Questions 6 and 7 were completed in the code.
+
  *
  * 6. The fundamental problem with this program is that pushbutton SW2 is sensed
  *    in each cycle of the loop and if its state is read as pressed, another
