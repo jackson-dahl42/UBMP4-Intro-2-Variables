@@ -181,9 +181,15 @@ int main(void)
 }
 #endif
 #ifdef A2
+<<<<<<< HEAD
 // Toggle button that turns an LED on when pressed, then off when pressed again.
 // Variables
 bool SW2Pressed = false;
+=======
+//Toggle button that turns an LED on when pressed, then off when pressed again.
+//Variables
+bool LED3light = false;
+>>>>>>> ff2d331c2a47e832eb74225c248e2b58bd57ab90
 
 int main(void)
 {
@@ -224,6 +230,7 @@ int main(void)
     {
         if(SW2 == pressed)
         {
+<<<<<<< HEAD
             LED3 = 1;
             SW2Count += 1;
         }
@@ -240,6 +247,11 @@ int main(void)
             SW2Count = 0;
         }
 
+=======
+
+        }
+
+>>>>>>> ff2d331c2a47e832eb74225c248e2b58bd57ab90
         __delay_ms(10);
 
         if(SW1 == pressed)
@@ -249,12 +261,16 @@ int main(void)
     }
 }
 #endif
+<<<<<<< HEAD
 #ifdef A4
 // A program that tests for switch bounce. Press SW2 and if LED4 lights there is switch bounce.
 // Variables
 const char timeCount = 2;
 unsigned char SW2Count = 0;
 bool SW2Pressed = false;
+=======
+#ifdef A3
+>>>>>>> ff2d331c2a47e832eb74225c248e2b58bd57ab90
 int main(void)
 {
     // Configure oscillator and I/O ports. These functions run once at start-up.
@@ -262,6 +278,7 @@ int main(void)
     UBMP4_config();             // Configure on-board UBMP4 I/O devices
     while(1)
     {
+<<<<<<< HEAD
     // Count new SW2 button presses
        if(SW2 == pressed && SW2Pressed == false)
        {
@@ -295,6 +312,23 @@ int main(void)
             LED4 = 0;
             SW2Count = 0;
         }
+=======
+        if(SW1 == pressed)
+        {
+            RESET();
+        }
+    }
+}
+#endif
+#ifdef A4
+int main(void)
+{
+    // Configure oscillator and I/O ports. These functions run once at start-up.
+    OSC_config();               // Configure internal oscillator for 48 MHz
+    UBMP4_config();             // Configure on-board UBMP4 I/O devices
+    while(1)
+    {
+>>>>>>> ff2d331c2a47e832eb74225c248e2b58bd57ab90
         if(SW1 == pressed)
         {
             RESET();
