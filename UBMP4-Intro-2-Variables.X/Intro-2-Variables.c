@@ -20,11 +20,13 @@
 
 // TODO Set linker ROM ranges to 'default,-0-7FF' under "Memory model" pull-down.
 // TODO Set linker code offset to '800' under "Additional options" pull-down.
+// Define the program in order to run ProgramAnalysis or activities 1-5.
 
 #define pressed 0
 #define notPressed 1
 #define A1
 #ifdef ProgramAnalysis
+
 // Program constant definitions
 const unsigned char maxCount = 50;
 
@@ -339,6 +341,9 @@ int main(void)
 	{
 	    LED3 = 1;
 	}
+	    
+	__delay_ms(10);
+	    
         if(SW1 == pressed)
         {
             RESET();
@@ -493,7 +498,7 @@ Questions 6 and 7 were completed in the code Program Analysis.
  *    program more readable at the expense of hiding the actual switch value in
  *    the definition statement instead of making it obvious in the if structure.
  *    Try it in your code, and modify the SW3 reset button to work with the same
- *    pressed adn notPressed definitions.
+ *    pressed and notPressed definitions.
  
         // Count new SW2 button presses
         if(SW2 == pressed && SW2Pressed == false)
