@@ -88,7 +88,7 @@ int main(void)
 }
 #endif
 #ifdef A1
-//Two Player clicker game
+// Two Player clicker game
 // Program constant definitions
 const unsigned char maxCount = 5;
 
@@ -308,6 +308,17 @@ int main(void)
 }
 #endif
 #ifdef A5
+// The push buttons didn't bounce because when I held down the button the second light didn't 
+// turn on. Because of that I know that only one event happened when I pressed the button.
+// If two or more events happened when I pressed the button then the second light would turn on
+// and it would mean there was switch bounce in the push buttons. You could create a program that
+// ignores switch bounce in a time span. The program is below. The light will only activate after
+// the amount of time in the variable and will ignore the switch bounce.
+
+// Variables
+const unsigned char timeCount = 50;
+unsigned char SW2Count = 0;
+
 int main(void)
 {
     // Configure oscillator and I/O ports. These functions run once at start-up.
@@ -315,12 +326,26 @@ int main(void)
     UBMP4_config();             // Configure on-board UBMP4 I/O devices
     while(1)
     {
+	if(SW2 == pressed)
+	{
+	    SW2Count += 1;
+	}
+	if(SW2 == !pressed)
+	{
+	    SW2Count = 0;
+	    LED3 = 0;
+	}
+	if(SW2Count >= timeCount)
+	{
+	    LED3 = 1;
+	}
         if(SW1 == pressed)
         {
             RESET();
         }
     }
 }
+
 #endif
 /* Program Analysis
  * 
@@ -330,10 +355,11 @@ int main(void)
  *    What are some benefits and drawbacks of using 8-bit variables in an 8-bit
  *    microcontroller?
 
-    The maximum value an 8-bit variable can store is 255. 
-A drawback of using an 8-bit variable is that you cannot represent numbers over 255, 
-but I could not think of any benefits that come with an 8-bit variable other than 
-that it is compatible with the hardware that is the UBMP4.
+    The maximum value an 8-bit variable can store is 255. A drawback of using an 8-bit 
+variable is that you cannot represent numbers over 255, but I could not think of any 
+benefits that come with an 8-bit variable other than that it is compatible with the hardware 
+that is the UBMP4. The number 255 also resetsto 0 when you add 1 to the variable which may 
+be useful.
 
  * 2. The constant 'maxCount' is defined using a declaration similar to that
  *    used for the SW2Count variable, but with the 'const' prefix added in the
@@ -403,7 +429,7 @@ that it is compatible with the hardware that is the UBMP4.
  when SW2 is held because when SW2 is held and LED D4 turns on the light will stay on because the 
  variable will never add 1 to 255 and reset to 0. 
 
-Questions 6 and 7 were completed in the code.
+Questions 6 and 7 were completed in the code Program Analysis.
 
  *
  * 6. The fundamental problem with this program is that pushbutton SW2 is sensed
@@ -487,6 +513,7 @@ Questions 6 and 7 were completed in the code.
         
  * 
  * Programming Activities
+ The program activities were completed in the code.
  * 
  * 1. Can you make a two-player rapid-clicker style game using this program as 
  *    a starting point? Let's use SW5 for the second player's pushbutton so that
@@ -526,4 +553,6 @@ Questions 6 and 7 were completed in the code.
  *    multi-function button that could be implemented to make your program
  *    ignore switch bounces. Multiple switch activations within a 50ms time span
  *    might indicate switch bounce and can be safely ignored.
+ 
+
  */
