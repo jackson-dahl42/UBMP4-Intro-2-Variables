@@ -386,7 +386,7 @@ be useful.
 
  When I press and release the button at different speeds LED D4 will turn on after a different 
  number of presses. I can turn it on with a 1-7 push of the button. I could not get the light 
- to turn after 50 presses because the code is flawed. The light would turn on after less than 
+ to turn on after 50 presses because the code is flawed. The light would turn on after less than 
  50 button presses. You can even turn the light on with one press simply by holding down.
  
  * 
