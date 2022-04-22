@@ -26,7 +26,7 @@
 #define A1
 #ifdef ProgramAnalysis
 // Program constant definitions
-const unsigned char maxCount = 5;
+const unsigned char maxCount = 50;
 
 // Program variable definitions
 unsigned char SW2Count = 0;
@@ -90,7 +90,7 @@ int main(void)
 #ifdef A1
 // Two Player clicker game
 // Program constant definitions
-const unsigned char maxCount = 5;
+const unsigned char maxCount = 50;
 
 // Program variable definitions
 unsigned char SW2Count = 0;
@@ -385,7 +385,9 @@ be useful.
  *    (Hint: try pressing and releasing the button at different rates of speed.)
 
  When I press and release the button at different speeds LED D4 will turn on after a different 
- number of presses. I can turn it on with a 1-7 push of the button.
+ number of presses. I can turn it on with a 1-7 push of the button. I could not get the light 
+ to turn after 50 presses because the code is flawed. The light would turn on after less than 
+ 50 button presses. You can even turn the light on with one press simply by holding down.
  
  * 
  * 4. Modify the second 'if' structure to add the else block, as shown below:
